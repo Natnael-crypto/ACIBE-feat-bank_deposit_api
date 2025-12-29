@@ -1,0 +1,1 @@
+DROP TABLE collaboratemd.insurance_check;

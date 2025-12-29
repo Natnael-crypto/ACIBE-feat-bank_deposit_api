@@ -1,0 +1,37 @@
+# EDI File Types
+
+This project handles two types of EDI (Electronic Data Interchange) files:
+
+## 1. Claim EDI 837
+
+**Purpose:** Claims are sent **to** insurance companies.
+
+**Structure:**
+
+- Contains services that a patient has used
+- Each service is called a **service line**
+- A service line consists of:
+  - `cpt_code` (required)
+  - `modifier` (optional)
+
+**Example:**
+
+- `90849:AH` and `90849:AO` are billed at different amounts
+- Format: `cpt_code:modifier`
+
+**Rates:**
+
+- Rates are negotiated between ACI and insurance companies
+- Rates specify the billing amount for each service line based on the service date
+- **Example:** If a patient's service date is `2025/1/1`, the system checks the contract for that date and `cpt_code` to determine the billing amount
+
+## 2. Payment EDI 835
+
+**Purpose:** Payments are sent **from** insurance companies.
+
+**Structure:**
+
+- Contains the claim ID
+- Includes the billed amount
+- Contains claim-level adjustments
+- Contains service-level adjustments

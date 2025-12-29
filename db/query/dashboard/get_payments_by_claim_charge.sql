@@ -1,0 +1,109 @@
+-- name: GetPaymentsByClaimAndCharge :many
+-- Get all payments for a specific claim_id and charge_id
+-- Returns paginated payments matching the GetDashboardPaymentsPaginated structure
+-- $1::text = claim_id
+-- $2::text = charge_id
+-- $3::int = year (optional, 0 = all years)
+-- $4::int = month (optional, 0 = all months)
+-- $5::int = limit
+-- $6::int = offset
+WITH claim_units_summary AS (
+    -- Get expected_amount and units from claim
+    SELECT 
+        claim_id,
+        COALESCE(charge_id, '') as charge_id,
+        SUM(COALESCE(NULLIF(TRIM(units), '')::numeric, 0))::numeric as total_units,
+        SUM(COALESCE(expected_amount, 0))::numeric as total_expected_amount
+    FROM collaboratemd.new_claim
+    WHERE claim_id = $1::text
+        AND COALESCE(charge_id, '') = $2::text
+    GROUP BY claim_id, COALESCE(charge_id, '')
+),
+payments_grouped AS (
+    SELECT
+        p.claim_id,
+        COALESCE(p.charge_id, '') as charge_id,
+        -- Sum all payments for this claim_id + charge_id
+        SUM(p.insurance_paid_a)::numeric as total_paid_amount,
+        -- Sum charge_amount for this claim_id + charge_id
+        SUM(p.charge_amount)::numeric as total_claim_charge,
+        -- MIN insurance_adjustment for this claim_id + charge_id
+        MIN(p.insurance_adjustment)::numeric as insurance_adjustment,
+        -- Get expected_amount and units from claim units summary
+        MIN(cus.total_expected_amount)::numeric as total_expected_amount,
+        MIN(cus.total_units)::numeric as units,
+        -- Take first value for other fields (for display purposes)
+        MIN(p.patient_id) as patient_id,
+        MIN(p.patient_name) as patient_name,
+        MIN(p.payment_name) as insurance_name,
+        MIN(p.payer_id) as insurance_id,
+        MIN(p.payment_received_date) as payment_date,
+        MIN(p.deposit_date) as posted_date,
+        MIN(p.charge_from_date) as charge_date,
+        MIN(p.payment_entered_date) as bpr_date,
+        MIN(p.payment_check) as trn,
+        MIN(p.remark) as remark,
+        MIN(p.unpaid_reason) as unpaid_reason,
+        MIN(p.adjustment_reasons) as adjustment_reasons,
+        MIN(p.revenue_code) as revenue_code,
+        MIN(p.cpt_code) as cpt_code,
+        MIN(p.credit_id) as credit_id,
+        -- Arrays - return empty array for now
+        ARRAY[]::text[] as modifiers,
+        -- Use claim_from_date for month calculation (matching dashboard API)
+        EXTRACT(MONTH FROM nc.claim_from_date) as month_number,
+        TO_CHAR(nc.claim_from_date, 'Month') as month_name
+    FROM collaboratemd.new_payment p
+    INNER JOIN collaboratemd.new_claim nc ON p.claim_id = nc.claim_id
+        AND COALESCE(p.charge_id, '') = COALESCE(nc.charge_id, '')
+    INNER JOIN claim_units_summary cus ON p.claim_id = cus.claim_id
+        AND COALESCE(p.charge_id, '') = cus.charge_id
+    WHERE p.claim_id = $1::text
+        AND COALESCE(p.charge_id, '') = $2::text
+        -- Filter by year if provided (0 = all years) using claim_from_date
+        AND ($3::int = 0 OR EXTRACT(YEAR FROM nc.claim_from_date) = $3::int)
+        -- Filter by month if provided (0 = all months) using claim_from_date
+        AND ($4::int = 0 OR EXTRACT(MONTH FROM nc.claim_from_date) = $4::int)
+    GROUP BY 
+        p.claim_id,
+        COALESCE(p.charge_id, ''),
+        EXTRACT(MONTH FROM nc.claim_from_date),
+        TO_CHAR(nc.claim_from_date, 'Month')
+)
+SELECT
+    CONCAT(pg.claim_id, '-', pg.charge_id) as id,
+    pg.claim_id,
+    pg.patient_id,
+    pg.patient_name,
+    pg.total_claim_charge,
+    pg.total_paid_amount,
+    '' as claim_status,
+    pg.insurance_name,
+    pg.insurance_id,
+    pg.payment_date,
+    pg.posted_date,
+    pg.charge_date,
+    pg.bpr_date,
+    pg.trn,
+    pg.month_number,
+    pg.month_name,
+    pg.charge_id,
+    pg.cpt_code,
+    pg.modifiers,
+    pg.insurance_adjustment,
+    pg.credit_id,
+    pg.remark,
+    pg.unpaid_reason,
+    pg.adjustment_reasons,
+    pg.revenue_code,
+    pg.total_expected_amount,
+    pg.units,
+    false as is_refund,
+    false as is_provider_adjustment,
+    false as is_era_adjustment
+FROM payments_grouped pg
+ORDER BY
+    pg.payment_date DESC,
+    pg.posted_date DESC
+LIMIT $5::int OFFSET $6::int;
+

@@ -1,0 +1,123 @@
+-- name: GetClaimById :many
+-- Get ALL claims for a specific claim_id (including duplicates)
+-- Returns all rows for the claim_id with payment information (unpaid_reason, remark)
+-- $1::text = claim_id
+WITH all_claim_lines AS (
+    -- Get ALL claim lines for this claim_id (no DISTINCT, include duplicates)
+    SELECT 
+        nc.claim_id,
+        nc.charge_id,
+        nc.cpt_code,
+        nc.modifiers,
+        nc.revenue_code,
+        nc.claim_type,
+        nc.claim_entered_date,
+        nc.claim_from_date,
+        nc.claim_to_date,
+        nc.patient_id,
+        nc.patient_name,
+        nc.primary_payer,
+        nc.secondary_payer,
+        nc.tertiary_payer,
+        nc.units,
+        nc.facility_pos_code,
+        nc.charge_pos_code,
+        nc.expected_amount,
+        nc.amount,
+        EXTRACT(MONTH FROM nc.claim_from_date)::numeric as month_number,
+        TO_CHAR(nc.claim_from_date, 'Month') as month_name,
+        CASE 
+            WHEN nc.cpt_code = 'H0038' THEN 'peer'
+            WHEN (nc.revenue_code IN ('0126', '0128') OR UPPER(nc.cpt_code) IN ('H2019', 'H0017', 'H0019', '99235', 'H0010', 'H2036')) AND nc.cpt_code != 'H0038' THEN 'inpatient'
+            ELSE 'outpatient'
+        END as determined_claim_type
+    FROM collaboratemd.new_claim nc
+    WHERE nc.claim_id = $1::text
+    ORDER BY nc.claim_from_date DESC, nc.claim_id, nc.charge_id, nc.cpt_code
+),
+payment_info AS (
+    -- Get payment information (unpaid_reason, remark, adjustment_reasons) for each claim_id + charge_id
+    -- Get the most recent payment's unpaid_reason, remark, and adjustment_reasons for each charge
+    SELECT DISTINCT ON (p.claim_id, COALESCE(p.charge_id, ''))
+        p.claim_id,
+        COALESCE(p.charge_id, '') as charge_id,
+        p.unpaid_reason,
+        p.remark,
+        p.adjustment_reasons
+    FROM collaboratemd.new_payment p
+    WHERE p.claim_id = $1::text
+    ORDER BY p.claim_id, COALESCE(p.charge_id, ''), p.payment_entered_date DESC, p.payment_received_date DESC
+),
+payment_totals_by_charge AS (
+    -- Sum all insurance_paid_a from payments for each claim_id + charge_id
+    SELECT 
+        p.claim_id,
+        COALESCE(p.charge_id, '') as charge_id,
+        SUM(p.insurance_paid_a)::numeric as total_payment_sum
+    FROM collaboratemd.new_payment p
+    WHERE p.claim_id = $1::text
+    GROUP BY p.claim_id, COALESCE(p.charge_id, '')
+),
+check_number_counts AS (
+    -- Count unique check numbers per charge (claim_id, charge_id)
+    SELECT 
+        p.claim_id,
+        COALESCE(p.charge_id, '') as charge_id,
+        COUNT(DISTINCT p.payment_check)::int as total_check_number_count
+    FROM collaboratemd.new_payment p
+    WHERE p.claim_id = $1::text
+        AND p.payment_check IS NOT NULL 
+        AND p.payment_check != ''
+    GROUP BY p.claim_id, COALESCE(p.charge_id, '')
+)
+SELECT
+    acl.claim_id,
+    COALESCE(acl.charge_id, '') as charge_id,
+    -- Determine claim type (matching GetClaims logic)
+    acl.determined_claim_type as claim_type,
+    0::numeric as total_charge,
+    0::numeric as total_billed,
+    acl.claim_entered_date,
+    acl.claim_from_date as service_date_from,
+    acl.claim_to_date as service_date_to,
+    acl.patient_id,
+    acl.patient_name,
+    acl.claim_type as type_of_service,
+    COALESCE((acl.primary_payer->>'Name')::text, '') as primary_payer_name,
+    COALESCE((acl.primary_payer->>'Id')::text, '') as primary_payer_id,
+    COALESCE((acl.secondary_payer->>'Name')::text, '') as secondary_payer_name,
+    COALESCE((acl.secondary_payer->>'Id')::text, '') as secondary_payer_id,
+    1::int as charge_count,
+    ARRAY[COALESCE(acl.cpt_code, '')]::text[] as cpt_codes,
+    COALESCE(acl.modifiers, ARRAY[]::text[])::text[] as modifiers,
+    acl.units::text as units,
+    acl.facility_pos_code::text as facility_pos_code,
+    acl.charge_pos_code::text as charge_pos_code,
+    COALESCE((acl.tertiary_payer->>'Name')::text, '') as tertiary_payer_name,
+    COALESCE((acl.tertiary_payer->>'Id')::text, '') as tertiary_payer_id,
+    COALESCE(acl.expected_amount, 0)::numeric as total_expected,
+    COALESCE(acl.amount, 0)::numeric as total_claim,
+    COALESCE(acl.amount, 0)::numeric as total_claims,
+    COALESCE(acl.expected_amount, 0)::numeric as total_expected_agg,
+    COALESCE(pt.total_payment_sum, 0)::numeric as total_payment,
+    COALESCE(NULLIF(TRIM(acl.units), '')::numeric, 0)::numeric as total_units,
+    (COALESCE(acl.expected_amount, 0)::numeric - COALESCE(pt.total_payment_sum, 0)::numeric)::numeric as outstanding_amount,
+    acl.month_number,
+    acl.month_name,
+    1::int as total_charges,
+    -- Add CPT code and charge ID as individual fields
+    COALESCE(acl.cpt_code, '') as cpt_code,
+    -- Add payment fields
+    COALESCE(pi.unpaid_reason, '') as unpaid_reason,
+    COALESCE(pi.remark, '') as remark,
+    COALESCE(pi.adjustment_reasons, '') as adjustment_reasons,
+     -- Count of unique check numbers for this charge
+    COALESCE(cnc.total_check_number_count, 0)::int as total_check_number_count
+FROM all_claim_lines acl
+LEFT JOIN payment_totals_by_charge pt ON acl.claim_id = pt.claim_id
+    AND COALESCE(acl.charge_id, '') = pt.charge_id
+LEFT JOIN payment_info pi ON acl.claim_id = pi.claim_id
+    AND COALESCE(acl.charge_id, '') = pi.charge_id
+LEFT JOIN check_number_counts cnc ON acl.claim_id = cnc.claim_id
+    AND COALESCE(acl.charge_id, '') = cnc.charge_id
+ORDER BY acl.claim_from_date DESC, acl.claim_id, acl.charge_id, acl.cpt_code;

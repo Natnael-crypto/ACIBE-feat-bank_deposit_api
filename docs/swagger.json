@@ -1,0 +1,3934 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the ACI Backend API server.",
+        "title": "ACI Backend API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "paths": {
+        "/auth/forgot-password": {
+            "post": {
+                "description": "Request a password reset link via email",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Forgot Password",
+                "parameters": [
+                    {
+                        "description": "Forgot password request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_authentication.ForgotPasswordRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "description": "Authenticate user with email and password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login",
+                "parameters": [
+                    {
+                        "description": "Login credentials",
+                        "name": "credentials",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_authentication.LoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Logout user and invalidate session",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout",
+                "parameters": [
+                    {
+                        "description": "Logout request",
+                        "name": "logout",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_authentication.LogoutRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/me": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get the currently authenticated user's information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Get Current User",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/oauth": {
+            "post": {
+                "description": "Authenticate user using OAuth provider (Google/Microsoft)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "OAuth Login",
+                "parameters": [
+                    {
+                        "description": "OAuth login request",
+                        "name": "oauth",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_authentication.OAuthLoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "description": "Refresh access token using refresh token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Refresh Token",
+                "parameters": [
+                    {
+                        "description": "Refresh token request",
+                        "name": "refresh",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_authentication.RefreshTokenRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/reset-password": {
+            "post": {
+                "description": "Reset password using reset token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Reset Password",
+                "parameters": [
+                    {
+                        "description": "Reset password request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_authentication.ResetPasswordRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/validate-reset-token": {
+            "get": {
+                "description": "Validate a password reset token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Validate Reset Token",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Reset token",
+                        "name": "token",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/bank-deposit": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve bank deposit data aggregated by month for a specific year",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bank Deposit"
+                ],
+                "summary": "Get Bank Deposit Data",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Year (defaults to current year)",
+                        "name": "year",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.BankDepositMonthData"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/bank-deposit-applied-payments-deprecated": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve paginated payments for bank deposit applied amount filtered by year and month",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Bank Deposit Applied Payments (DEPRECATED - use bankdeposit handler)",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Year (required)",
+                        "name": "year",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Month (0 = all months, 1-12 = specific month)",
+                        "name": "month",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term (optional)",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Cursor for pagination (optional)",
+                        "name": "cursor",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page (default: 15)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_dashboard.PaymentsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/bank-deposit-claims-deprecated": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve paginated claims for bank deposit data filtered by year and month",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Bank Deposit Claims (DEPRECATED - use bankdeposit handler)",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Year (required)",
+                        "name": "year",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Month (0 = all months, 1-12 = specific month)",
+                        "name": "month",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term (optional)",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Cursor for pagination (optional)",
+                        "name": "cursor",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page (default: 15)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_dashboard.ClaimsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/bank-deposit-deprecated": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve bank deposit data aggregated by month for a specific year",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Bank Deposit Data (DEPRECATED - use bankdeposit handler)",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Year (defaults to current year)",
+                        "name": "year",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_http_server_handlers_dashboard.BankDepositMonthData"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/bank-deposit/applied-payments": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve paginated payments for bank deposit applied amount filtered by year and month",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bank Deposit"
+                ],
+                "summary": "Get Bank Deposit Applied Payments",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Year (required)",
+                        "name": "year",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Month (0 = all months, 1-12 = specific month)",
+                        "name": "month",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term (optional)",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Cursor for pagination (optional)",
+                        "name": "cursor",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page (default: 15)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.PaymentsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/bank-deposit/claims": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve paginated claims for bank deposit data filtered by year and month",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Bank Deposit"
+                ],
+                "summary": "Get Bank Deposit Claims",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Year (required)",
+                        "name": "year",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Month (0 = all months, 1-12 = specific month)",
+                        "name": "month",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term (optional)",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Cursor for pagination (optional)",
+                        "name": "cursor",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page (default: 15)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.ClaimsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/claims/by-id": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve all unique claim(s) for a specific claim_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Claim By ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Claim ID",
+                        "name": "claim_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_http_server_handlers_dashboard.Claim"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/claims/charges": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve all charges (claim_id, cpt_code pairs) for a specific claim",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Claim Charges",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Claim ID",
+                        "name": "claim_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Year (optional, 0 = all years)",
+                        "name": "year",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Month (optional, 0 = all months)",
+                        "name": "month",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_http_server_handlers_dashboard.ClaimCharge"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/insurance-checks": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve paginated insurance checks filtered by year, month, and search",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Insurance Checks",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Year (required)",
+                        "name": "year",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Month (0 = all months, 1-12 = specific month)",
+                        "name": "month",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term (optional)",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page (default: 15)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_dashboard.InsuranceChecksResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/payment-checks": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve all individual payment records (not grouped) for a specific claim_id and charge_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Payment Checks by Claim and Charge",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Claim ID",
+                        "name": "claim_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Charge ID",
+                        "name": "charge_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Year (optional)",
+                        "name": "year",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Month (optional, 1-12)",
+                        "name": "month",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page (default: 25)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_dashboard.PaymentChecksResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/payments/by-check-number": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve paginated payments for a specific check number (TRN), optionally filtered by year",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Payments By Check Number",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Check number (TRN)",
+                        "name": "check_number",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Year (optional, 0 = all years)",
+                        "name": "year",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page (default: 15)",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Claims vs Expected filter (all, claimsGreater, expectedGreater)",
+                        "name": "claims_expected_filter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Payment status filter (all, overpaid, underpaid, fullyPaid)",
+                        "name": "payment_status_filter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term (optional)",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_dashboard.PaymentsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/yearly": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve aggregated dashboard data across all years",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Yearly Dashboard Data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "$ref": "#/definitions/internal_http_server_handlers_dashboard.MonthData"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/departments": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve a paginated list of departments with optional search",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Get Departments with Pagination",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Items per page",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search query",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new department",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Create Department",
+                "parameters": [
+                    {
+                        "description": "Department to create",
+                        "name": "department",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_department.CreateDepartmentRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_department.DepartmentResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/departments/all": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve all departments without pagination",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Get All Departments",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/internal_http_server_handlers_department.DepartmentResponse"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/departments/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve a specific department by its ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Get Department by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Department ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_department.DepartmentResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update an existing department by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Update Department",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Department ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Department update data",
+                        "name": "department",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_department.UpdateDepartmentRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_department.DepartmentResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a department by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Delete Department",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Department ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/rates/inpatient": {
+            "get": {
+                "description": "Retrieve a list of in patient rates with optional filtering and pagination",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get In Patient Rates",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filter by code",
+                        "name": "code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "csv",
+                        "description": "Filter by modifiers",
+                        "name": "modifiers",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by description",
+                        "name": "description",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by start date (YYYY-MM-DD)",
+                        "name": "startDate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by end date (YYYY-MM-DD)",
+                        "name": "endDate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number for pagination",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Number of items per page",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.GetInPatientRatesRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new in patient rate",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Create In Patient Rate",
+                "parameters": [
+                    {
+                        "description": "In Patient Rate to create",
+                        "name": "rate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.CreateInPatientRateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.InPatientRateRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/rates/inpatient/{id}": {
+            "get": {
+                "description": "Retrieve a specific in patient rate by its ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get In Patient Rate by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "In Patient Rate ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.InPatientRateRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes an in patient rate by its ID",
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Delete In Patient Rate",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "In Patient Rate ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/rates/outpatient": {
+            "get": {
+                "description": "Retrieve a list of out patient rates with optional filtering and pagination",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get Out Patient Rates",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filter by code",
+                        "name": "code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "csv",
+                        "description": "Filter by modifiers",
+                        "name": "modifiers",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by description",
+                        "name": "description",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by start date (YYYY-MM-DD)",
+                        "name": "startDate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by end date (YYYY-MM-DD)",
+                        "name": "endDate",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number for pagination",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Number of items per page",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.GetOutPatientRatesRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new out patient rate",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Create Out Patient Rate",
+                "parameters": [
+                    {
+                        "description": "Out Patient Rate to create",
+                        "name": "rate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.CreateOutPatientRateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.OutPatientRateRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/rates/outpatient/all": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve all outpatient rates from the database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get All Outpatient Rates",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/rates/outpatient/by-code": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve a specific outpatient rate by code and modifiers",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get Outpatient Rate by Code and Modifiers",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Rate code",
+                        "name": "code",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Rate modifiers (comma-separated)",
+                        "name": "modifiers",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/rates/outpatient/create": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new outpatient rate",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Create Outpatient Rate",
+                "parameters": [
+                    {
+                        "description": "Outpatient rate to create",
+                        "name": "rate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_aci_backend_internal_core_domain_rates.OutPatientRate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/rates/outpatient/{id}": {
+            "get": {
+                "description": "Retrieve a specific out patient rate by its ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get Out Patient Rate by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Out Patient Rate ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.OutPatientRateRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes an out patient rate by its ID",
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Delete Out Patient Rate",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Out Patient Rate ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_rates.ErrorRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve a paginated list of users with optional search and sorting",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get Users",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Items per page",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "created_at",
+                        "description": "Field to sort by",
+                        "name": "sort_field",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "desc",
+                        "description": "Sort order (asc/desc)",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search query",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create User",
+                "parameters": [
+                    {
+                        "description": "User to create",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_user.CreateUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_user.UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieve a specific user by their ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get User by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_user.UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update an existing user by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "User update data",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_user.UpdateUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_user.UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a user by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/password": {
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Change the password for a user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Change User Password",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Password change data",
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_user.ChangePasswordRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/status": {
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update the status (active/inactive) of a user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update User Status",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Status update",
+                        "name": "status",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_http_server_handlers_user.UpdateStatusRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "github_com_aci_backend_internal_core_domain_common.Metadata": {
+            "type": "object",
+            "properties": {
+                "currentPage": {
+                    "type": "integer"
+                },
+                "firstPage": {
+                    "type": "integer"
+                },
+                "lastPage": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalRecords": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_core_domain_common.PaginationMetadata": {
+            "type": "object",
+            "properties": {
+                "hasMore": {
+                    "type": "boolean"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "nextCursor": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRecords": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_core_domain_rates.OutPatientRate": {
+            "type": "object",
+            "properties": {
+                "apg_weight": {
+                    "type": "number"
+                },
+                "codes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                },
+                "modifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "note": {
+                    "type": "string"
+                },
+                "plus_individual_codes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "quantifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "rate_periods": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_aci_backend_internal_core_domain_rates.RatePeriod"
+                    }
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_core_domain_rates.RatePeriod": {
+            "type": "object",
+            "properties": {
+                "end_date": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "off_site_rate": {
+                    "type": "number"
+                },
+                "on_site_rate": {
+                    "type": "number"
+                },
+                "start_date": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_types_dashboard.BankDepositMonthData": {
+            "type": "object",
+            "properties": {
+                "month": {
+                    "type": "string"
+                },
+                "total_applied_amount": {
+                    "type": "number"
+                },
+                "total_claims_amount": {
+                    "type": "number"
+                },
+                "total_claims_number": {
+                    "type": "integer"
+                },
+                "total_deposit_amount": {
+                    "type": "number"
+                },
+                "total_expected_amount": {
+                    "type": "number"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_types_dashboard.CategoryData": {
+            "type": "object",
+            "properties": {
+                "IN": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.TypeData"
+                },
+                "OUT": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.TypeData"
+                },
+                "PEER": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.TypeData"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_types_dashboard.Claim": {
+            "type": "object",
+            "properties": {
+                "adjustmentReasons": {
+                    "description": "Adjustment reasons from payments",
+                    "type": "string"
+                },
+                "chargeCount": {
+                    "type": "integer"
+                },
+                "chargeId": {
+                    "type": "string"
+                },
+                "chargePosCode": {
+                    "type": "string"
+                },
+                "claimEnteredDate": {
+                    "type": "string"
+                },
+                "claimFromDate": {
+                    "type": "string"
+                },
+                "claimId": {
+                    "type": "string"
+                },
+                "claimToDate": {
+                    "type": "string"
+                },
+                "claimType": {
+                    "type": "string"
+                },
+                "cptCode": {
+                    "description": "Individual CPT code for this row",
+                    "type": "string"
+                },
+                "cptCodes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "facilityPosCode": {
+                    "type": "string"
+                },
+                "modifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "patientId": {
+                    "type": "string"
+                },
+                "patientName": {
+                    "type": "string"
+                },
+                "primaryPayerId": {
+                    "type": "string"
+                },
+                "primaryPayerName": {
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "Remark from payments",
+                    "type": "string"
+                },
+                "secondaryPayerId": {
+                    "type": "string"
+                },
+                "secondaryPayerName": {
+                    "type": "string"
+                },
+                "tertiaryPayerId": {
+                    "type": "string"
+                },
+                "tertiaryPayerName": {
+                    "type": "string"
+                },
+                "totalCharges": {
+                    "description": "Count of duplicate charges for this claim",
+                    "type": "integer"
+                },
+                "totalCheckNumber": {
+                    "description": "Count of unique check numbers for this charge",
+                    "type": "integer"
+                },
+                "totalClaim": {
+                    "type": "number"
+                },
+                "totalClaims": {
+                    "description": "Sum of amount for duplicate claims",
+                    "type": "number"
+                },
+                "totalExpected": {
+                    "description": "Sum of expected_amount for duplicate claims",
+                    "type": "number"
+                },
+                "totalOutstanding": {
+                    "description": "Outstanding amount (expected - billed)",
+                    "type": "number"
+                },
+                "totalPayment": {
+                    "description": "Sum of insurance_paid_a from payments",
+                    "type": "number"
+                },
+                "totalUnits": {
+                    "description": "Sum of units for duplicate claims",
+                    "type": "integer"
+                },
+                "units": {
+                    "type": "string"
+                },
+                "unpaidReason": {
+                    "description": "Unpaid reason from payments",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_types_dashboard.ClaimDetails": {
+            "type": "object",
+            "properties": {
+                "chargePosCode": {
+                    "type": "string"
+                },
+                "claimEnteredDate": {
+                    "type": "string"
+                },
+                "claimFromDate": {
+                    "type": "string"
+                },
+                "claimToDate": {
+                    "type": "string"
+                },
+                "claimType": {
+                    "type": "string"
+                },
+                "facilityPosCode": {
+                    "type": "string"
+                },
+                "patientId": {
+                    "type": "string"
+                },
+                "patientName": {
+                    "type": "string"
+                },
+                "primaryPayerId": {
+                    "type": "string"
+                },
+                "primaryPayerName": {
+                    "type": "string"
+                },
+                "secondaryPayerId": {
+                    "type": "string"
+                },
+                "secondaryPayerName": {
+                    "type": "string"
+                },
+                "tertiaryPayerId": {
+                    "type": "string"
+                },
+                "tertiaryPayerName": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_types_dashboard.ClaimsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.Claim"
+                    }
+                },
+                "pagination": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_types_dashboard.InsuranceCheck": {
+            "type": "object",
+            "properties": {
+                "checkAmount": {
+                    "type": "number"
+                },
+                "checkAppliedAmount": {
+                    "type": "number"
+                },
+                "checkCommitted": {
+                    "type": "boolean"
+                },
+                "checkDate": {
+                    "type": "string"
+                },
+                "checkNumber": {
+                    "type": "string"
+                },
+                "checkPayer": {
+                    "type": "string"
+                },
+                "checkRemainingAmount": {
+                    "type": "number"
+                },
+                "depositDate": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "monthName": {
+                    "type": "string"
+                },
+                "monthNumber": {
+                    "type": "integer"
+                },
+                "providerAdjustmentAmount": {
+                    "type": "number"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_types_dashboard.Payment": {
+            "type": "object",
+            "properties": {
+                "adjustmentReasons": {
+                    "type": "string"
+                },
+                "bprDate": {
+                    "type": "string"
+                },
+                "chargeDate": {
+                    "type": "string"
+                },
+                "chargeId": {
+                    "type": "string"
+                },
+                "claimId": {
+                    "type": "string"
+                },
+                "claimStatus": {
+                    "type": "string"
+                },
+                "cptCode": {
+                    "type": "string"
+                },
+                "creditId": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "insuranceAdjustment": {
+                    "type": "number"
+                },
+                "insuranceId": {
+                    "type": "string"
+                },
+                "insuranceName": {
+                    "type": "string"
+                },
+                "isEraAdjustment": {
+                    "type": "boolean"
+                },
+                "isProviderAdjustment": {
+                    "type": "boolean"
+                },
+                "isRefund": {
+                    "type": "boolean"
+                },
+                "modifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "monthName": {
+                    "type": "string"
+                },
+                "monthNumber": {
+                    "type": "integer"
+                },
+                "patientId": {
+                    "type": "string"
+                },
+                "patientName": {
+                    "type": "string"
+                },
+                "paymentDate": {
+                    "type": "string"
+                },
+                "postedDate": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "revenueCode": {
+                    "type": "string"
+                },
+                "totalCheckNumber": {
+                    "description": "Count of unique check numbers for this payment",
+                    "type": "integer"
+                },
+                "totalClaimCharge": {
+                    "type": "number"
+                },
+                "totalExpectedAmount": {
+                    "type": "number"
+                },
+                "totalOutstandingAmount": {
+                    "type": "number"
+                },
+                "totalPaidAmount": {
+                    "type": "number"
+                },
+                "trn": {
+                    "type": "string"
+                },
+                "units": {
+                    "type": "integer"
+                },
+                "unpaidReason": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_types_dashboard.PaymentCheck": {
+            "type": "object",
+            "properties": {
+                "adjustmentReasons": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "chargeId": {
+                    "type": "string"
+                },
+                "checkNumber": {
+                    "type": "string"
+                },
+                "claimId": {
+                    "type": "string"
+                },
+                "depositDate": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "unpaidReason": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_types_dashboard.PaymentsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.Payment"
+                    }
+                },
+                "pagination": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata"
+                }
+            }
+        },
+        "github_com_aci_backend_internal_types_dashboard.TypeData": {
+            "type": "object",
+            "properties": {
+                "total_amount": {
+                    "description": "Sum of total_amount values for unique claims (for totalAmount category) - float64 with 2 decimals",
+                    "type": "number"
+                },
+                "total_claims": {
+                    "description": "Sum of total_claim values for unique claims (for totalClaims category)",
+                    "type": "integer"
+                },
+                "total_expected": {
+                    "description": "Sum of total_expected values for unique claims (for totalExpected category) - float64 with 2 decimals",
+                    "type": "number"
+                },
+                "total_expected_with_payments": {
+                    "description": "Sum of expected_amount for claims with payments (even if payment is 0.0) - float64 with 2 decimals",
+                    "type": "number"
+                },
+                "total_outstanding": {
+                    "description": "Sum of total_outstanding values for unique claims (for outstanding category) - float64 with 2 decimals (only set for outstanding category)",
+                    "type": "number"
+                },
+                "total_payments": {
+                    "description": "Sum of total_payments values for unique claims (for totalPayments category) - float64 with 2 decimals",
+                    "type": "number"
+                },
+                "total_units": {
+                    "description": "Sum of units for unique claims (for all categories)",
+                    "type": "integer"
+                },
+                "value": {
+                    "description": "Count of unique claims for this category",
+                    "type": "integer"
+                }
+            }
+        },
+        "internal_http_server_handlers_authentication.ForgotPasswordRequest": {
+            "type": "object",
+            "required": [
+                "email"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_authentication.LoginRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_authentication.LogoutRequest": {
+            "type": "object",
+            "required": [
+                "access_token"
+            ],
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_authentication.OAuthLoginRequest": {
+            "type": "object",
+            "required": [
+                "access_token",
+                "email",
+                "provider",
+                "provider_user_id"
+            ],
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "provider": {
+                    "type": "string",
+                    "enum": [
+                        "google",
+                        "microsoft"
+                    ]
+                },
+                "provider_user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_authentication.RefreshTokenRequest": {
+            "type": "object",
+            "required": [
+                "refresh_token"
+            ],
+            "properties": {
+                "refresh_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_authentication.ResetPasswordRequest": {
+            "type": "object",
+            "required": [
+                "new_password",
+                "token"
+            ],
+            "properties": {
+                "new_password": {
+                    "type": "string",
+                    "minLength": 6
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_dashboard.BankDepositMonthData": {
+            "type": "object",
+            "properties": {
+                "month": {
+                    "type": "string"
+                },
+                "total_applied_amount": {
+                    "type": "number"
+                },
+                "total_claims_amount": {
+                    "type": "number"
+                },
+                "total_claims_number": {
+                    "type": "integer"
+                },
+                "total_deposit_amount": {
+                    "type": "number"
+                },
+                "total_expected_amount": {
+                    "type": "number"
+                }
+            }
+        },
+        "internal_http_server_handlers_dashboard.Claim": {
+            "type": "object",
+            "properties": {
+                "adjustmentReasons": {
+                    "description": "Adjustment reasons from payments",
+                    "type": "string"
+                },
+                "chargeCount": {
+                    "type": "integer"
+                },
+                "chargeId": {
+                    "type": "string"
+                },
+                "chargePosCode": {
+                    "type": "string"
+                },
+                "claimEnteredDate": {
+                    "type": "string"
+                },
+                "claimFromDate": {
+                    "type": "string"
+                },
+                "claimId": {
+                    "type": "string"
+                },
+                "claimToDate": {
+                    "type": "string"
+                },
+                "claimType": {
+                    "type": "string"
+                },
+                "cptCode": {
+                    "description": "Individual CPT code for this row",
+                    "type": "string"
+                },
+                "cptCodes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "facilityPosCode": {
+                    "type": "string"
+                },
+                "modifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "patientId": {
+                    "type": "string"
+                },
+                "patientName": {
+                    "type": "string"
+                },
+                "primaryPayerId": {
+                    "type": "string"
+                },
+                "primaryPayerName": {
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "Remark from payments",
+                    "type": "string"
+                },
+                "secondaryPayerId": {
+                    "type": "string"
+                },
+                "secondaryPayerName": {
+                    "type": "string"
+                },
+                "tertiaryPayerId": {
+                    "type": "string"
+                },
+                "tertiaryPayerName": {
+                    "type": "string"
+                },
+                "totalCharges": {
+                    "description": "Count of duplicate charges for this claim",
+                    "type": "integer"
+                },
+                "totalCheckNumber": {
+                    "description": "Count of unique check numbers for this charge",
+                    "type": "integer"
+                },
+                "totalClaim": {
+                    "type": "number"
+                },
+                "totalClaims": {
+                    "description": "Sum of amount for duplicate claims",
+                    "type": "number"
+                },
+                "totalExpected": {
+                    "description": "Sum of expected_amount for duplicate claims",
+                    "type": "number"
+                },
+                "totalOutstanding": {
+                    "description": "Outstanding amount (expected - billed)",
+                    "type": "number"
+                },
+                "totalPayment": {
+                    "description": "Sum of insurance_paid_a from payments",
+                    "type": "number"
+                },
+                "totalUnits": {
+                    "description": "Sum of units for duplicate claims",
+                    "type": "integer"
+                },
+                "units": {
+                    "type": "string"
+                },
+                "unpaidReason": {
+                    "description": "Unpaid reason from payments",
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_dashboard.ClaimCharge": {
+            "type": "object",
+            "properties": {
+                "adjustmentReasons": {
+                    "description": "Adjustment reasons from payments",
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "chargeId": {
+                    "type": "string"
+                },
+                "claimDetails": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.ClaimDetails"
+                },
+                "claimId": {
+                    "type": "string"
+                },
+                "cptCode": {
+                    "type": "string"
+                },
+                "expectedAmount": {
+                    "type": "number"
+                },
+                "insurancePaidAmount": {
+                    "type": "number"
+                },
+                "modifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "outstandingAmount": {
+                    "description": "ExpectedAmount - InsurancePaidAmount",
+                    "type": "number"
+                },
+                "remark": {
+                    "description": "Remark from payments",
+                    "type": "string"
+                },
+                "revenueCode": {
+                    "type": "string"
+                },
+                "totalCheckNumber": {
+                    "description": "Count of unique check numbers for this charge",
+                    "type": "integer"
+                },
+                "units": {
+                    "type": "string"
+                },
+                "unpaidReason": {
+                    "description": "Unpaid reason from payments",
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_dashboard.ClaimsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.Claim"
+                    }
+                },
+                "pagination": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata"
+                }
+            }
+        },
+        "internal_http_server_handlers_dashboard.InsuranceChecksResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.InsuranceCheck"
+                    }
+                },
+                "pagination": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata"
+                },
+                "totalDepositAmount": {
+                    "type": "number"
+                }
+            }
+        },
+        "internal_http_server_handlers_dashboard.MonthData": {
+            "type": "object",
+            "properties": {
+                "outstanding": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.CategoryData"
+                },
+                "totalClaims": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.CategoryData"
+                },
+                "totalExpected": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.CategoryData"
+                },
+                "totalPayments": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.CategoryData"
+                }
+            }
+        },
+        "internal_http_server_handlers_dashboard.PaymentChecksResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.PaymentCheck"
+                    }
+                },
+                "pagination": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata"
+                }
+            }
+        },
+        "internal_http_server_handlers_dashboard.PaymentsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_aci_backend_internal_types_dashboard.Payment"
+                    }
+                },
+                "pagination": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata"
+                }
+            }
+        },
+        "internal_http_server_handlers_department.CreateDepartmentRequest": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "internal_http_server_handlers_department.DepartmentResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_department.UpdateDepartmentRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "internal_http_server_handlers_rates.CreateInPatientRateReq": {
+            "type": "object",
+            "required": [
+                "code",
+                "description",
+                "offSiteRate",
+                "onSiteRate",
+                "startDate"
+            ],
+            "properties": {
+                "apgWeight": {
+                    "type": "number"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "modifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "note": {
+                    "type": "string"
+                },
+                "offSiteRate": {
+                    "type": "number"
+                },
+                "onSiteRate": {
+                    "type": "number"
+                },
+                "startDate": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_rates.CreateOutPatientRateReq": {
+            "type": "object",
+            "required": [
+                "code",
+                "description",
+                "offSiteRate",
+                "onSiteRate",
+                "startDate"
+            ],
+            "properties": {
+                "apgWeight": {
+                    "type": "number"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "modifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "note": {
+                    "type": "string"
+                },
+                "offSiteRate": {
+                    "type": "number"
+                },
+                "onSiteRate": {
+                    "type": "number"
+                },
+                "startDate": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_rates.ErrorRes": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_rates.GetInPatientRatesRes": {
+            "type": "object",
+            "properties": {
+                "inPatientRates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/internal_http_server_handlers_rates.InPatientRateRes"
+                    }
+                },
+                "metadata": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_core_domain_common.Metadata"
+                }
+            }
+        },
+        "internal_http_server_handlers_rates.GetOutPatientRatesRes": {
+            "type": "object",
+            "properties": {
+                "metadata": {
+                    "$ref": "#/definitions/github_com_aci_backend_internal_core_domain_common.Metadata"
+                },
+                "outPatientRates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/internal_http_server_handlers_rates.OutPatientRateRes"
+                    }
+                }
+            }
+        },
+        "internal_http_server_handlers_rates.InPatientRateRes": {
+            "type": "object",
+            "properties": {
+                "apgWeight": {
+                    "type": "number"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "modifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "note": {
+                    "type": "string"
+                },
+                "offSiteRate": {
+                    "type": "number"
+                },
+                "onSiteRate": {
+                    "type": "number"
+                },
+                "startDate": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_rates.OutPatientRateRes": {
+            "type": "object",
+            "properties": {
+                "apgWeight": {
+                    "type": "number"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "modifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "note": {
+                    "type": "string"
+                },
+                "offSiteRate": {
+                    "type": "number"
+                },
+                "onSiteRate": {
+                    "type": "number"
+                },
+                "startDate": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_user.ChangePasswordRequest": {
+            "type": "object",
+            "required": [
+                "new_password"
+            ],
+            "properties": {
+                "current_password": {
+                    "type": "string"
+                },
+                "new_password": {
+                    "type": "string",
+                    "minLength": 6
+                }
+            }
+        },
+        "internal_http_server_handlers_user.CreateUserRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "first_name",
+                "last_name",
+                "password",
+                "role"
+            ],
+            "properties": {
+                "department_ids": {
+                    "description": "Accept as strings, convert to UUIDs",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 6
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "admin",
+                        "employee"
+                    ]
+                }
+            }
+        },
+        "internal_http_server_handlers_user.DepartmentInfo": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_http_server_handlers_user.UpdateStatusRequest": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "description": "Accept any type, we'll convert to bool"
+                }
+            }
+        },
+        "internal_http_server_handlers_user.UpdateUserRequest": {
+            "type": "object",
+            "properties": {
+                "department_ids": {
+                    "description": "Accept as strings, convert to UUIDs",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "admin",
+                        "employee"
+                    ]
+                }
+            }
+        },
+        "internal_http_server_handlers_user.UserResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "departments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/internal_http_server_handlers_user.DepartmentInfo"
+                    }
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "description": "Type \"Bearer\" followed by a space and JWT token.",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

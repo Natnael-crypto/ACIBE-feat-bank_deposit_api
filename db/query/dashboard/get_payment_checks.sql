@@ -1,0 +1,64 @@
+-- name: GetPaymentChecksByClaimAndCharge :many
+-- Get ALL individual payment records (not grouped) for a specific claim_id and charge_id
+-- Returns all payments including duplicates with different check numbers
+-- Note: Year/month parameters are accepted for API compatibility but NOT used for filtering
+-- We show ALL payment checks for the (claim_id, charge_id) pair regardless of year/month
+-- $1::text = claim_id
+-- $2::text = charge_id (empty string = all charges for the claim)
+-- $3::int = year (ignored - kept for API compatibility)
+-- $4::int = month (ignored - kept for API compatibility)
+-- $5::int = limit
+-- $6::int = offset
+SELECT
+    p.claim_id,
+    COALESCE(p.charge_id, '') as charge_id,
+    p.payment_check as check_number,
+    p.insurance_paid_a as amount,
+    p.remark,
+    p.unpaid_reason,
+    COALESCE(p.adjustment_reasons, '') as adjustment_reasons,
+    p.deposit_date
+FROM collaboratemd.new_payment p
+INNER JOIN collaboratemd.new_claim nc ON p.claim_id = nc.claim_id
+    AND (
+        -- If charge_id is empty, match all charge lines for the claim (only match on claim_id)
+        ($2::text = '' OR $2::text IS NULL)
+        -- If charge_id is provided, match the specific charge line (payment and claim must both have the provided charge_id)
+        OR ($2::text != '' AND COALESCE(p.charge_id, '') = $2::text AND COALESCE(nc.charge_id, '') = $2::text)
+    )
+WHERE p.claim_id = $1::text
+    AND ($2::text = '' OR $2::text IS NULL OR COALESCE(p.charge_id, '') = $2::text)
+    -- Note: Year/month filters ($3, $4) are NOT applied - we show ALL payment checks for this (claim_id, charge_id) pair
+    -- The year/month parameters are kept for API compatibility but always evaluate to true
+    AND ($3::int = 0 OR $3::int != 0)  -- Always true - year filter not applied
+    AND ($4::int = 0 OR $4::int != 0)  -- Always true - month filter not applied
+ORDER BY
+    p.payment_check,
+    p.payment_received_date DESC,
+    p.payment_entered_date DESC
+LIMIT $5::int OFFSET $6::int;
+
+-- name: GetPaymentChecksByClaimAndChargeCount :one
+-- Get total count of individual payment records for a specific claim_id and charge_id
+-- Note: Year/month parameters are accepted for API compatibility but NOT used for filtering
+-- We count ALL payment checks for the (claim_id, charge_id) pair regardless of year/month
+-- $1::text = claim_id
+-- $2::text = charge_id (empty string = all charges for the claim)
+-- $3::int = year (ignored - kept for API compatibility)
+-- $4::int = month (ignored - kept for API compatibility)
+SELECT COUNT(*) as total_count
+FROM collaboratemd.new_payment p
+INNER JOIN collaboratemd.new_claim nc ON p.claim_id = nc.claim_id
+    AND (
+        -- If charge_id is empty, match all charge lines for the claim (only match on claim_id)
+        ($2::text = '' OR $2::text IS NULL)
+        -- If charge_id is provided, match the specific charge line (payment and claim must both have the provided charge_id)
+        OR ($2::text != '' AND COALESCE(p.charge_id, '') = $2::text AND COALESCE(nc.charge_id, '') = $2::text)
+    )
+WHERE p.claim_id = $1::text
+    AND ($2::text = '' OR $2::text IS NULL OR COALESCE(p.charge_id, '') = $2::text)
+    -- Note: Year/month filters ($3, $4) are NOT applied - we count ALL payment checks for this (claim_id, charge_id) pair
+    -- The year/month parameters are kept for API compatibility but always evaluate to true
+    AND ($3::int = 0 OR $3::int != 0)  -- Always true - year filter not applied
+    AND ($4::int = 0 OR $4::int != 0);  -- Always true - month filter not applied
+

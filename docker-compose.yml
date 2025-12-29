@@ -1,0 +1,42 @@
+services:
+  # Go Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aci-backend
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      # Database Configuration (connects to local PostgreSQL)
+      DB_URL: ${DB_URL}
+      
+      # Server Configuration
+      PORT: ${PORT:-8080}
+      
+      # JWT Configuration
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN}
+      
+      # Admin Configuration
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin@example.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
+      
+      # Email Configuration
+      EMAIL_PROVIDER: ${EMAIL_PROVIDER:-resend}
+      EMAIL_API_KEY: ${EMAIL_API_KEY}
+      EMAIL_FROM: ${EMAIL_FROM:-onboarding@resend.dev}
+      EMAIL_FROM_NAME: ${EMAIL_FROM_NAME:-Employee List}
+      
+      # Frontend URL
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      
+      # Environment
+      ENV: ${ENV:-development}
+      
+      # Collaborate API
+      COLLABORATE_USERNAME: ${COLLABORATE_USERNAME}
+      COLLABORATE_PASSWORD: ${COLLABORATE_PASSWORD}
+    volumes:
+      - ./config.yaml:/app/config.yaml

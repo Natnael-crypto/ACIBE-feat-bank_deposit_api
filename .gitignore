@@ -1,0 +1,24 @@
+claimzips
+paymentzips
+codes.json
+excel_plus
+firstRange.json
+group_excel
+individual_excel
+individual.json
+new.json
+plus.json
+parser.go
+.env
+config.yaml
+test_main
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+aci.pem
+notes.txt
+payers.json

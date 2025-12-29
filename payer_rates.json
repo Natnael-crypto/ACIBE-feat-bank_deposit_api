@@ -1,0 +1,1012 @@
+[
+    {
+        "id": [
+            13135358
+        ],
+        "primary_payer": [
+            "1199 (COMMERCIAL)",
+            "1199 NATIONAL BENEFIT FUND"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 450.00,
+                "rehab": 450.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 450.00,
+                "rehab": 450.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 450.00,
+                "rehab": 450.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 450.00,
+                "rehab": 450.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 450.00,
+                "rehab": 450.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 450.00,
+                "rehab": 450.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 450.00,
+                "rehab": 450.00
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 450.00,
+                "rehab": 450.00
+            }
+        ]
+    },
+    {
+        "id": [],
+        "primary_payer": [
+            "AETNA / USHC (COMMERCIAL)",
+            "AETNA"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 800.00,
+                "rehab": 800.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 800.00,
+                "rehab": 800.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 800.00,
+                "rehab": 800.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": "OON",
+                "rehab": "OON"
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": "OON",
+                "rehab": "OON"
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": "OON",
+                "rehab": "OON"
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": "OON",
+                "rehab": "OON"
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": "OON",
+                "rehab": "OON"
+            }
+        ]
+    },
+    {
+        "id": [],
+        "primary_payer": [
+            "CARELON (AMIDA - MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 500.00,
+                "rehab": 400.00
+            }
+        ]
+    },
+    {
+        "id": [
+            13266063,
+            13136938,
+            13268383,
+            13268364,
+            13294314,
+            13136917,
+            13315766
+        ],
+        "primary_payer": [
+            "HIP-HEALTH INSURANCE PLAN OF GREATER NY",
+            "HEALTH INSURANCE PLAN OF GREATER NEW YORK",
+            "VISITING NURSE SERVICE OF NEW YORK",
+            "BEACON HEALTH OPTIONS (CARELON)",
+            "BEACON HEALTH OPTIONS (CARELON)",
+            "CARELON (BEACON - HIP - MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 540.00,
+                "rehab": 490.00
+            }
+        ]
+    },
+    {
+        "id": [
+            13297686
+        ],
+        "primary_payer": [
+            "MAGNACARE",
+            "CARELON (BEACON HEALTH STRATEGIES - MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 500.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 500.00,
+                "rehab": 400.00
+            }
+        ]
+    },
+    {
+        "id": [
+            13306996
+        ],
+        "primary_payer": [
+            "CARELON (VNS - MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 540.00,
+                "rehab": 490.00
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 540.00,
+                "rehab": 490.00
+            }
+        ]
+    },
+    {
+        "id": [
+            13136492
+        ],
+        "primary_payer": [
+            "CIGNA INSURANCE (COMMERCIAL)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 800.00,
+                "rehab": 700.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 800.00,
+                "rehab": 700.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 800.00,
+                "rehab": 700.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 800.00,
+                "rehab": 700.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 800.00,
+                "rehab": 700.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 800.00,
+                "rehab": 700.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 800.00,
+                "rehab": 700.00
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 800.00,
+                "rehab": 700.00
+            }
+        ]
+    },
+    {
+        "id": [
+            13137234
+        ],
+        "primary_payer": [
+            "EMBLEM BEHAVIORAL HEALTH (COMMERCIAL)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 525.00,
+                "rehab": 475.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 525.00,
+                "rehab": 475.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 525.00,
+                "rehab": 475.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 525.00,
+                "rehab": 475.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 525.00,
+                "rehab": 475.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 525.00,
+                "rehab": 475.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 525.00,
+                "rehab": 475.00
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 525.00,
+                "rehab": 475.00
+            }
+        ]
+    },
+    {
+        "id": [
+            13268398,
+            13140186,
+            13136940
+        ],
+        "primary_payer": [
+            "EMPIRE BLUE CROSS (COMMERCIAL)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 325.00,
+                "rehab": 325.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 325.00,
+                "rehab": 325.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 325.00,
+                "rehab": 325.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 325.00,
+                "rehab": 325.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 325.00,
+                "rehab": 325.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 325.00,
+                "rehab": 325.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 325.00,
+                "rehab": 325.00
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 325.00,
+                "rehab": 325.00
+            }
+        ]
+    },
+    {
+        "id": [
+            13136501,
+            13349191,
+            13294315
+        ],
+        "primary_payer": [
+            "FIDELIS OF NEW YORK (Medicaid)",
+            "UMR FKA UMR WAUSAU"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 425.00,
+                "rehab": 325.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 425.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 425.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 425.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 425.00,
+                "rehab": 400.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 518.34,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 518.34,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 531.82,
+                "rehab": 498.87
+            }
+        ]
+    },
+    {
+        "id": [
+            13136493
+        ],
+        "primary_payer": [
+            "HEALTHFIRST UB (MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 575.00,
+                "rehab": 525.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 575.00,
+                "rehab": 525.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 575.00,
+                "rehab": 525.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 575.00,
+                "rehab": 500.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 575.00,
+                "rehab": 500.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 575.00,
+                "rehab": 500.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 575.00,
+                "rehab": 500.00
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 575.00,
+                "rehab": 500.00
+            }
+        ]
+    },
+    {
+        "id": [
+            13268379,
+            13136489,
+            13266066
+        ],
+        "primary_payer": [
+            "HEALTHPLUS (MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 450.00,
+                "rehab": 275.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 450.00,
+                "rehab": 275.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 450.00,
+                "rehab": 275.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 450.00,
+                "rehab": 275.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 450.00,
+                "rehab": 275.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 450.00,
+                "rehab": 275.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 450.00,
+                "rehab": 275.00
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 450.00,
+                "rehab": 275.00
+            }
+        ]
+    },
+    {
+        "id": [
+            13243773
+        ],
+        "primary_payer": [
+            "Humana Medicare Advantage"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": null,
+                "rehab": null
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": null,
+                "rehab": null
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 468.33,
+                "rehab": 454.61
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 487.06,
+                "rehab": 472.79
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 513.92,
+                "rehab": 498.87
+            }
+        ]
+    },
+    {
+        "id": [
+            13136499,
+            13310377,
+            13282651,
+            13334827,
+            13243775,
+            13310404,
+            13324036,
+            13380900,
+            13256110,
+            13268420,
+            13136482,
+            13294306,
+            13294313,
+            13336158,
+            13382055,
+            13317575,
+            13137247
+        ],
+        "primary_payer": [
+            "MEDICAID (MEDICAID)",
+            "CAPITAL DISTRICT PHYSICIANS HEALTH PLAN-CDPHP",
+            "CATHOLIC MANAGED LONG TERM CARE PACE, INC",
+            "COMMONWEALTH CARE ALLIANCE (CCA",
+            "HAMASPIK CHOICE",
+            "MVP HEALTH PLANS OF NEW YORK",
+            "TRICARE EAST PGBA - DOS AFTER 1-1-2025",
+            "CENTERS PLAN FOR HEALTH LIVING",
+            "ELDERPLAN INC INSTITUTIONAL",
+            "SENIOR WHOLE HEALTH NEW YORK DOS AFTER 04012021",
+            "OXFORD HEALTH PLANS"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 423.17,
+                "rehab": 410.79
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 446.03,
+                "rehab": 432.69
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 468.33,
+                "rehab": 454.61
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 487.06,
+                "rehab": 472.79
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 513.92,
+                "rehab": 498.87
+            }
+        ]
+    },
+    {
+        "id": [
+            13136500,
+            13349530
+        ],
+        "primary_payer": [
+            "METRO PLUS (MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 444.33,
+                "rehab": 431.33
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 468.33,
+                "rehab": 454.32
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 491.75,
+                "rehab": 477.34
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 511.41,
+                "rehab": 496.43
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 525.95,
+                "rehab": 510.54
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 525.95,
+                "rehab": 510.54
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 525.95,
+                "rehab": 510.54
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 539.62,
+                "rehab": 523.81
+            }
+        ]
+    },
+    {
+        "id": [
+            13136503,
+            13243779
+        ],
+        "primary_payer": [
+            "MOLINA (MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 514.00,
+                "rehab": 430.00
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 514.00,
+                "rehab": 430.00
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 514.00,
+                "rehab": 430.00
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 514.00,
+                "rehab": 430.00
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 514.00,
+                "rehab": 430.00
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 514.00,
+                "rehab": 430.00
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 518.34,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 531.82,
+                "rehab": 498.87
+            }
+        ]
+    },
+    {
+        "id": [
+            13243775
+        ],
+        "primary_payer": [
+            "MVP HEALTHCARE (MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 423.17,
+                "rehab": 410.79
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 446.03,
+                "rehab": 432.69
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 468.33,
+                "rehab": 454.61
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 487.06,
+                "rehab": 472.79
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 513.92,
+                "rehab": 498.87
+            }
+        ]
+    },
+    {
+        "id": [
+            13136509,
+            13266059,
+            13294316
+        ],
+        "primary_payer": [
+            "UNITED HEALTHCARE (MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": 422.08,
+                "rehab": 324.64
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": 422.08,
+                "rehab": 324.64
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 468.33,
+                "rehab": 454.61
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 487.06,
+                "rehab": 472.79
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 513.92,
+                "rehab": 498.87
+            }
+        ]
+    },
+    {
+        "id": [
+            13243774,
+            13294311,
+            13294312
+        ],
+        "primary_payer": [
+            "WELLCARE (MEDICAID)"
+        ],
+        "rates": [
+            {
+                "date_range": "1/1/2019-3/31/2022",
+                "msws": null,
+                "rehab": null
+            },
+            {
+                "date_range": "4/1/22-12/31/22",
+                "msws": null,
+                "rehab": null
+            },
+            {
+                "date_range": "1/1/23-3/31/23",
+                "msws": 468.33,
+                "rehab": 454.61
+            },
+            {
+                "date_range": "4/1/23-3/30/24",
+                "msws": 487.06,
+                "rehab": 472.79
+            },
+            {
+                "date_range": "4/1/2024",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "8/1/2024",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "1/1/2025",
+                "msws": 500.90,
+                "rehab": 486.23
+            },
+            {
+                "date_range": "4/1/2025",
+                "msws": 513.92,
+                "rehab": 498.87
+            }
+        ]
+    },
+    {
+        "id": [],
+        "primary_payer": [],
+        "rates": [
+            {
+                "date_range": "7/5/2025",
+                "msws": 540.00,
+                "rehab": 490.00
+            }
+        ]
+    }
+]

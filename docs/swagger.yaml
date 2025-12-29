@@ -1,0 +1,2626 @@
+basePath: /api
+definitions:
+  github_com_aci_backend_internal_core_domain_common.Metadata:
+    properties:
+      currentPage:
+        type: integer
+      firstPage:
+        type: integer
+      lastPage:
+        type: integer
+      pageSize:
+        type: integer
+      totalRecords:
+        type: integer
+    type: object
+  github_com_aci_backend_internal_core_domain_common.PaginationMetadata:
+    properties:
+      hasMore:
+        type: boolean
+      limit:
+        type: integer
+      nextCursor:
+        type: string
+      page:
+        type: integer
+      totalPages:
+        type: integer
+      totalRecords:
+        type: integer
+    type: object
+  github_com_aci_backend_internal_core_domain_rates.OutPatientRate:
+    properties:
+      apg_weight:
+        type: number
+      codes:
+        items:
+          type: string
+        type: array
+      description:
+        type: string
+      modifiers:
+        items:
+          type: string
+        type: array
+      note:
+        type: string
+      plus_individual_codes:
+        items:
+          type: string
+        type: array
+      quantifiers:
+        items:
+          type: string
+        type: array
+      rate_periods:
+        items:
+          $ref: '#/definitions/github_com_aci_backend_internal_core_domain_rates.RatePeriod'
+        type: array
+      type:
+        type: string
+    type: object
+  github_com_aci_backend_internal_core_domain_rates.RatePeriod:
+    properties:
+      end_date:
+        type: string
+      note:
+        type: string
+      off_site_rate:
+        type: number
+      on_site_rate:
+        type: number
+      start_date:
+        type: string
+    type: object
+  github_com_aci_backend_internal_types_dashboard.BankDepositMonthData:
+    properties:
+      month:
+        type: string
+      total_applied_amount:
+        type: number
+      total_claims_amount:
+        type: number
+      total_claims_number:
+        type: integer
+      total_deposit_amount:
+        type: number
+      total_expected_amount:
+        type: number
+    type: object
+  github_com_aci_backend_internal_types_dashboard.CategoryData:
+    properties:
+      IN:
+        $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.TypeData'
+      OUT:
+        $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.TypeData'
+      PEER:
+        $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.TypeData'
+    type: object
+  github_com_aci_backend_internal_types_dashboard.Claim:
+    properties:
+      adjustmentReasons:
+        description: Adjustment reasons from payments
+        type: string
+      chargeCount:
+        type: integer
+      chargeId:
+        type: string
+      chargePosCode:
+        type: string
+      claimEnteredDate:
+        type: string
+      claimFromDate:
+        type: string
+      claimId:
+        type: string
+      claimToDate:
+        type: string
+      claimType:
+        type: string
+      cptCode:
+        description: Individual CPT code for this row
+        type: string
+      cptCodes:
+        items:
+          type: string
+        type: array
+      facilityPosCode:
+        type: string
+      modifiers:
+        items:
+          type: string
+        type: array
+      patientId:
+        type: string
+      patientName:
+        type: string
+      primaryPayerId:
+        type: string
+      primaryPayerName:
+        type: string
+      remark:
+        description: Remark from payments
+        type: string
+      secondaryPayerId:
+        type: string
+      secondaryPayerName:
+        type: string
+      tertiaryPayerId:
+        type: string
+      tertiaryPayerName:
+        type: string
+      totalCharges:
+        description: Count of duplicate charges for this claim
+        type: integer
+      totalCheckNumber:
+        description: Count of unique check numbers for this charge
+        type: integer
+      totalClaim:
+        type: number
+      totalClaims:
+        description: Sum of amount for duplicate claims
+        type: number
+      totalExpected:
+        description: Sum of expected_amount for duplicate claims
+        type: number
+      totalOutstanding:
+        description: Outstanding amount (expected - billed)
+        type: number
+      totalPayment:
+        description: Sum of insurance_paid_a from payments
+        type: number
+      totalUnits:
+        description: Sum of units for duplicate claims
+        type: integer
+      units:
+        type: string
+      unpaidReason:
+        description: Unpaid reason from payments
+        type: string
+    type: object
+  github_com_aci_backend_internal_types_dashboard.ClaimDetails:
+    properties:
+      chargePosCode:
+        type: string
+      claimEnteredDate:
+        type: string
+      claimFromDate:
+        type: string
+      claimToDate:
+        type: string
+      claimType:
+        type: string
+      facilityPosCode:
+        type: string
+      patientId:
+        type: string
+      patientName:
+        type: string
+      primaryPayerId:
+        type: string
+      primaryPayerName:
+        type: string
+      secondaryPayerId:
+        type: string
+      secondaryPayerName:
+        type: string
+      tertiaryPayerId:
+        type: string
+      tertiaryPayerName:
+        type: string
+    type: object
+  github_com_aci_backend_internal_types_dashboard.ClaimsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.Claim'
+        type: array
+      pagination:
+        $ref: '#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata'
+    type: object
+  github_com_aci_backend_internal_types_dashboard.InsuranceCheck:
+    properties:
+      checkAmount:
+        type: number
+      checkAppliedAmount:
+        type: number
+      checkCommitted:
+        type: boolean
+      checkDate:
+        type: string
+      checkNumber:
+        type: string
+      checkPayer:
+        type: string
+      checkRemainingAmount:
+        type: number
+      depositDate:
+        type: string
+      id:
+        type: string
+      monthName:
+        type: string
+      monthNumber:
+        type: integer
+      providerAdjustmentAmount:
+        type: number
+    type: object
+  github_com_aci_backend_internal_types_dashboard.Payment:
+    properties:
+      adjustmentReasons:
+        type: string
+      bprDate:
+        type: string
+      chargeDate:
+        type: string
+      chargeId:
+        type: string
+      claimId:
+        type: string
+      claimStatus:
+        type: string
+      cptCode:
+        type: string
+      creditId:
+        type: string
+      id:
+        type: string
+      insuranceAdjustment:
+        type: number
+      insuranceId:
+        type: string
+      insuranceName:
+        type: string
+      isEraAdjustment:
+        type: boolean
+      isProviderAdjustment:
+        type: boolean
+      isRefund:
+        type: boolean
+      modifiers:
+        items:
+          type: string
+        type: array
+      monthName:
+        type: string
+      monthNumber:
+        type: integer
+      patientId:
+        type: string
+      patientName:
+        type: string
+      paymentDate:
+        type: string
+      postedDate:
+        type: string
+      remark:
+        type: string
+      revenueCode:
+        type: string
+      totalCheckNumber:
+        description: Count of unique check numbers for this payment
+        type: integer
+      totalClaimCharge:
+        type: number
+      totalExpectedAmount:
+        type: number
+      totalOutstandingAmount:
+        type: number
+      totalPaidAmount:
+        type: number
+      trn:
+        type: string
+      units:
+        type: integer
+      unpaidReason:
+        type: string
+    type: object
+  github_com_aci_backend_internal_types_dashboard.PaymentCheck:
+    properties:
+      adjustmentReasons:
+        type: string
+      amount:
+        type: number
+      chargeId:
+        type: string
+      checkNumber:
+        type: string
+      claimId:
+        type: string
+      depositDate:
+        type: string
+      remark:
+        type: string
+      unpaidReason:
+        type: string
+    type: object
+  github_com_aci_backend_internal_types_dashboard.PaymentsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.Payment'
+        type: array
+      pagination:
+        $ref: '#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata'
+    type: object
+  github_com_aci_backend_internal_types_dashboard.TypeData:
+    properties:
+      total_amount:
+        description: Sum of total_amount values for unique claims (for totalAmount
+          category) - float64 with 2 decimals
+        type: number
+      total_claims:
+        description: Sum of total_claim values for unique claims (for totalClaims
+          category)
+        type: integer
+      total_expected:
+        description: Sum of total_expected values for unique claims (for totalExpected
+          category) - float64 with 2 decimals
+        type: number
+      total_expected_with_payments:
+        description: Sum of expected_amount for claims with payments (even if payment
+          is 0.0) - float64 with 2 decimals
+        type: number
+      total_outstanding:
+        description: Sum of total_outstanding values for unique claims (for outstanding
+          category) - float64 with 2 decimals (only set for outstanding category)
+        type: number
+      total_payments:
+        description: Sum of total_payments values for unique claims (for totalPayments
+          category) - float64 with 2 decimals
+        type: number
+      total_units:
+        description: Sum of units for unique claims (for all categories)
+        type: integer
+      value:
+        description: Count of unique claims for this category
+        type: integer
+    type: object
+  internal_http_server_handlers_authentication.ForgotPasswordRequest:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  internal_http_server_handlers_authentication.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  internal_http_server_handlers_authentication.LogoutRequest:
+    properties:
+      access_token:
+        type: string
+    required:
+    - access_token
+    type: object
+  internal_http_server_handlers_authentication.OAuthLoginRequest:
+    properties:
+      access_token:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      provider:
+        enum:
+        - google
+        - microsoft
+        type: string
+      provider_user_id:
+        type: string
+    required:
+    - access_token
+    - email
+    - provider
+    - provider_user_id
+    type: object
+  internal_http_server_handlers_authentication.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  internal_http_server_handlers_authentication.ResetPasswordRequest:
+    properties:
+      new_password:
+        minLength: 6
+        type: string
+      token:
+        type: string
+    required:
+    - new_password
+    - token
+    type: object
+  internal_http_server_handlers_dashboard.BankDepositMonthData:
+    properties:
+      month:
+        type: string
+      total_applied_amount:
+        type: number
+      total_claims_amount:
+        type: number
+      total_claims_number:
+        type: integer
+      total_deposit_amount:
+        type: number
+      total_expected_amount:
+        type: number
+    type: object
+  internal_http_server_handlers_dashboard.Claim:
+    properties:
+      adjustmentReasons:
+        description: Adjustment reasons from payments
+        type: string
+      chargeCount:
+        type: integer
+      chargeId:
+        type: string
+      chargePosCode:
+        type: string
+      claimEnteredDate:
+        type: string
+      claimFromDate:
+        type: string
+      claimId:
+        type: string
+      claimToDate:
+        type: string
+      claimType:
+        type: string
+      cptCode:
+        description: Individual CPT code for this row
+        type: string
+      cptCodes:
+        items:
+          type: string
+        type: array
+      facilityPosCode:
+        type: string
+      modifiers:
+        items:
+          type: string
+        type: array
+      patientId:
+        type: string
+      patientName:
+        type: string
+      primaryPayerId:
+        type: string
+      primaryPayerName:
+        type: string
+      remark:
+        description: Remark from payments
+        type: string
+      secondaryPayerId:
+        type: string
+      secondaryPayerName:
+        type: string
+      tertiaryPayerId:
+        type: string
+      tertiaryPayerName:
+        type: string
+      totalCharges:
+        description: Count of duplicate charges for this claim
+        type: integer
+      totalCheckNumber:
+        description: Count of unique check numbers for this charge
+        type: integer
+      totalClaim:
+        type: number
+      totalClaims:
+        description: Sum of amount for duplicate claims
+        type: number
+      totalExpected:
+        description: Sum of expected_amount for duplicate claims
+        type: number
+      totalOutstanding:
+        description: Outstanding amount (expected - billed)
+        type: number
+      totalPayment:
+        description: Sum of insurance_paid_a from payments
+        type: number
+      totalUnits:
+        description: Sum of units for duplicate claims
+        type: integer
+      units:
+        type: string
+      unpaidReason:
+        description: Unpaid reason from payments
+        type: string
+    type: object
+  internal_http_server_handlers_dashboard.ClaimCharge:
+    properties:
+      adjustmentReasons:
+        description: Adjustment reasons from payments
+        type: string
+      amount:
+        type: number
+      chargeId:
+        type: string
+      claimDetails:
+        $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.ClaimDetails'
+      claimId:
+        type: string
+      cptCode:
+        type: string
+      expectedAmount:
+        type: number
+      insurancePaidAmount:
+        type: number
+      modifiers:
+        items:
+          type: string
+        type: array
+      outstandingAmount:
+        description: ExpectedAmount - InsurancePaidAmount
+        type: number
+      remark:
+        description: Remark from payments
+        type: string
+      revenueCode:
+        type: string
+      totalCheckNumber:
+        description: Count of unique check numbers for this charge
+        type: integer
+      units:
+        type: string
+      unpaidReason:
+        description: Unpaid reason from payments
+        type: string
+    type: object
+  internal_http_server_handlers_dashboard.ClaimsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.Claim'
+        type: array
+      pagination:
+        $ref: '#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata'
+    type: object
+  internal_http_server_handlers_dashboard.InsuranceChecksResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.InsuranceCheck'
+        type: array
+      pagination:
+        $ref: '#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata'
+      totalDepositAmount:
+        type: number
+    type: object
+  internal_http_server_handlers_dashboard.MonthData:
+    properties:
+      outstanding:
+        $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.CategoryData'
+      totalClaims:
+        $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.CategoryData'
+      totalExpected:
+        $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.CategoryData'
+      totalPayments:
+        $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.CategoryData'
+    type: object
+  internal_http_server_handlers_dashboard.PaymentChecksResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.PaymentCheck'
+        type: array
+      pagination:
+        $ref: '#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata'
+    type: object
+  internal_http_server_handlers_dashboard.PaymentsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.Payment'
+        type: array
+      pagination:
+        $ref: '#/definitions/github_com_aci_backend_internal_core_domain_common.PaginationMetadata'
+    type: object
+  internal_http_server_handlers_department.CreateDepartmentRequest:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      resources:
+        items:
+          type: string
+        type: array
+    required:
+    - name
+    type: object
+  internal_http_server_handlers_department.DepartmentResponse:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      resources:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+    type: object
+  internal_http_server_handlers_department.UpdateDepartmentRequest:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      resources:
+        items:
+          type: string
+        type: array
+    type: object
+  internal_http_server_handlers_rates.CreateInPatientRateReq:
+    properties:
+      apgWeight:
+        type: number
+      code:
+        type: string
+      description:
+        type: string
+      endDate:
+        type: string
+      modifiers:
+        items:
+          type: string
+        type: array
+      note:
+        type: string
+      offSiteRate:
+        type: number
+      onSiteRate:
+        type: number
+      startDate:
+        type: string
+    required:
+    - code
+    - description
+    - offSiteRate
+    - onSiteRate
+    - startDate
+    type: object
+  internal_http_server_handlers_rates.CreateOutPatientRateReq:
+    properties:
+      apgWeight:
+        type: number
+      code:
+        type: string
+      description:
+        type: string
+      endDate:
+        type: string
+      modifiers:
+        items:
+          type: string
+        type: array
+      note:
+        type: string
+      offSiteRate:
+        type: number
+      onSiteRate:
+        type: number
+      startDate:
+        type: string
+    required:
+    - code
+    - description
+    - offSiteRate
+    - onSiteRate
+    - startDate
+    type: object
+  internal_http_server_handlers_rates.ErrorRes:
+    properties:
+      error:
+        type: string
+    type: object
+  internal_http_server_handlers_rates.GetInPatientRatesRes:
+    properties:
+      inPatientRates:
+        items:
+          $ref: '#/definitions/internal_http_server_handlers_rates.InPatientRateRes'
+        type: array
+      metadata:
+        $ref: '#/definitions/github_com_aci_backend_internal_core_domain_common.Metadata'
+    type: object
+  internal_http_server_handlers_rates.GetOutPatientRatesRes:
+    properties:
+      metadata:
+        $ref: '#/definitions/github_com_aci_backend_internal_core_domain_common.Metadata'
+      outPatientRates:
+        items:
+          $ref: '#/definitions/internal_http_server_handlers_rates.OutPatientRateRes'
+        type: array
+    type: object
+  internal_http_server_handlers_rates.InPatientRateRes:
+    properties:
+      apgWeight:
+        type: number
+      code:
+        type: string
+      description:
+        type: string
+      endDate:
+        type: string
+      id:
+        type: string
+      modifiers:
+        items:
+          type: string
+        type: array
+      note:
+        type: string
+      offSiteRate:
+        type: number
+      onSiteRate:
+        type: number
+      startDate:
+        type: string
+    type: object
+  internal_http_server_handlers_rates.OutPatientRateRes:
+    properties:
+      apgWeight:
+        type: number
+      code:
+        type: string
+      description:
+        type: string
+      endDate:
+        type: string
+      id:
+        type: string
+      modifiers:
+        items:
+          type: string
+        type: array
+      note:
+        type: string
+      offSiteRate:
+        type: number
+      onSiteRate:
+        type: number
+      startDate:
+        type: string
+    type: object
+  internal_http_server_handlers_user.ChangePasswordRequest:
+    properties:
+      current_password:
+        type: string
+      new_password:
+        minLength: 6
+        type: string
+    required:
+    - new_password
+    type: object
+  internal_http_server_handlers_user.CreateUserRequest:
+    properties:
+      department_ids:
+        description: Accept as strings, convert to UUIDs
+        items:
+          type: string
+        type: array
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      role:
+        enum:
+        - admin
+        - employee
+        type: string
+    required:
+    - email
+    - first_name
+    - last_name
+    - password
+    - role
+    type: object
+  internal_http_server_handlers_user.DepartmentInfo:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      resources:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+    type: object
+  internal_http_server_handlers_user.UpdateStatusRequest:
+    properties:
+      status:
+        description: Accept any type, we'll convert to bool
+    type: object
+  internal_http_server_handlers_user.UpdateUserRequest:
+    properties:
+      department_ids:
+        description: Accept as strings, convert to UUIDs
+        items:
+          type: string
+        type: array
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      role:
+        enum:
+        - admin
+        - employee
+        type: string
+    type: object
+  internal_http_server_handlers_user.UserResponse:
+    properties:
+      created_at:
+        type: string
+      departments:
+        items:
+          $ref: '#/definitions/internal_http_server_handlers_user.DepartmentInfo'
+        type: array
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      role:
+        type: string
+      status:
+        type: boolean
+      updated_at:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is the ACI Backend API server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: ACI Backend API
+  version: "1.0"
+paths:
+  /auth/forgot-password:
+    post:
+      consumes:
+      - application/json
+      description: Request a password reset link via email
+      parameters:
+      - description: Forgot password request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_authentication.ForgotPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Forgot Password
+      tags:
+      - Authentication
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user with email and password
+      parameters:
+      - description: Login credentials
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_authentication.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login
+      tags:
+      - Authentication
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: Logout user and invalidate session
+      parameters:
+      - description: Logout request
+        in: body
+        name: logout
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_authentication.LogoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Logout
+      tags:
+      - Authentication
+  /auth/me:
+    get:
+      consumes:
+      - application/json
+      description: Get the currently authenticated user's information
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Current User
+      tags:
+      - Authentication
+  /auth/oauth:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user using OAuth provider (Google/Microsoft)
+      parameters:
+      - description: OAuth login request
+        in: body
+        name: oauth
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_authentication.OAuthLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: OAuth Login
+      tags:
+      - Authentication
+  /auth/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Refresh access token using refresh token
+      parameters:
+      - description: Refresh token request
+        in: body
+        name: refresh
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_authentication.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Refresh Token
+      tags:
+      - Authentication
+  /auth/reset-password:
+    post:
+      consumes:
+      - application/json
+      description: Reset password using reset token
+      parameters:
+      - description: Reset password request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_authentication.ResetPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Reset Password
+      tags:
+      - Authentication
+  /auth/validate-reset-token:
+    get:
+      consumes:
+      - application/json
+      description: Validate a password reset token
+      parameters:
+      - description: Reset token
+        in: query
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Validate Reset Token
+      tags:
+      - Authentication
+  /dashboard/bank-deposit:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve bank deposit data aggregated by month for a specific year
+      parameters:
+      - description: Year (defaults to current year)
+        in: query
+        name: year
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.BankDepositMonthData'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Bank Deposit Data
+      tags:
+      - Bank Deposit
+  /dashboard/bank-deposit-applied-payments-deprecated:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve paginated payments for bank deposit applied amount filtered
+        by year and month
+      parameters:
+      - description: Year (required)
+        in: query
+        name: year
+        required: true
+        type: integer
+      - description: Month (0 = all months, 1-12 = specific month)
+        in: query
+        name: month
+        type: integer
+      - description: Search term (optional)
+        in: query
+        name: search
+        type: string
+      - description: Cursor for pagination (optional)
+        in: query
+        name: cursor
+        type: string
+      - description: 'Items per page (default: 15)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_dashboard.PaymentsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Bank Deposit Applied Payments (DEPRECATED - use bankdeposit handler)
+      tags:
+      - Dashboard
+  /dashboard/bank-deposit-claims-deprecated:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve paginated claims for bank deposit data filtered by year
+        and month
+      parameters:
+      - description: Year (required)
+        in: query
+        name: year
+        required: true
+        type: integer
+      - description: Month (0 = all months, 1-12 = specific month)
+        in: query
+        name: month
+        type: integer
+      - description: Search term (optional)
+        in: query
+        name: search
+        type: string
+      - description: Cursor for pagination (optional)
+        in: query
+        name: cursor
+        type: string
+      - description: 'Items per page (default: 15)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_dashboard.ClaimsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Bank Deposit Claims (DEPRECATED - use bankdeposit handler)
+      tags:
+      - Dashboard
+  /dashboard/bank-deposit-deprecated:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve bank deposit data aggregated by month for a specific year
+      parameters:
+      - description: Year (defaults to current year)
+        in: query
+        name: year
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/internal_http_server_handlers_dashboard.BankDepositMonthData'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Bank Deposit Data (DEPRECATED - use bankdeposit handler)
+      tags:
+      - Dashboard
+  /dashboard/bank-deposit/applied-payments:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve paginated payments for bank deposit applied amount filtered
+        by year and month
+      parameters:
+      - description: Year (required)
+        in: query
+        name: year
+        required: true
+        type: integer
+      - description: Month (0 = all months, 1-12 = specific month)
+        in: query
+        name: month
+        type: integer
+      - description: Search term (optional)
+        in: query
+        name: search
+        type: string
+      - description: Cursor for pagination (optional)
+        in: query
+        name: cursor
+        type: string
+      - description: 'Items per page (default: 15)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.PaymentsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Bank Deposit Applied Payments
+      tags:
+      - Bank Deposit
+  /dashboard/bank-deposit/claims:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve paginated claims for bank deposit data filtered by year
+        and month
+      parameters:
+      - description: Year (required)
+        in: query
+        name: year
+        required: true
+        type: integer
+      - description: Month (0 = all months, 1-12 = specific month)
+        in: query
+        name: month
+        type: integer
+      - description: Search term (optional)
+        in: query
+        name: search
+        type: string
+      - description: Cursor for pagination (optional)
+        in: query
+        name: cursor
+        type: string
+      - description: 'Items per page (default: 15)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_aci_backend_internal_types_dashboard.ClaimsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Bank Deposit Claims
+      tags:
+      - Bank Deposit
+  /dashboard/claims/by-id:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all unique claim(s) for a specific claim_id
+      parameters:
+      - description: Claim ID
+        in: query
+        name: claim_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/internal_http_server_handlers_dashboard.Claim'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Claim By ID
+      tags:
+      - Dashboard
+  /dashboard/claims/charges:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all charges (claim_id, cpt_code pairs) for a specific
+        claim
+      parameters:
+      - description: Claim ID
+        in: query
+        name: claim_id
+        required: true
+        type: string
+      - description: Year (optional, 0 = all years)
+        in: query
+        name: year
+        type: integer
+      - description: Month (optional, 0 = all months)
+        in: query
+        name: month
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/internal_http_server_handlers_dashboard.ClaimCharge'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Claim Charges
+      tags:
+      - Dashboard
+  /dashboard/insurance-checks:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve paginated insurance checks filtered by year, month, and
+        search
+      parameters:
+      - description: Year (required)
+        in: query
+        name: year
+        required: true
+        type: integer
+      - description: Month (0 = all months, 1-12 = specific month)
+        in: query
+        name: month
+        type: integer
+      - description: Search term (optional)
+        in: query
+        name: search
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Items per page (default: 15)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_dashboard.InsuranceChecksResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Insurance Checks
+      tags:
+      - Dashboard
+  /dashboard/payment-checks:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all individual payment records (not grouped) for a specific
+        claim_id and charge_id
+      parameters:
+      - description: Claim ID
+        in: query
+        name: claim_id
+        required: true
+        type: string
+      - description: Charge ID
+        in: query
+        name: charge_id
+        required: true
+        type: string
+      - description: Year (optional)
+        in: query
+        name: year
+        type: integer
+      - description: Month (optional, 1-12)
+        in: query
+        name: month
+        type: integer
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Items per page (default: 25)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_dashboard.PaymentChecksResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Payment Checks by Claim and Charge
+      tags:
+      - Dashboard
+  /dashboard/payments/by-check-number:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve paginated payments for a specific check number (TRN),
+        optionally filtered by year
+      parameters:
+      - description: Check number (TRN)
+        in: query
+        name: check_number
+        type: string
+      - description: Year (optional, 0 = all years)
+        in: query
+        name: year
+        type: integer
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Items per page (default: 15)'
+        in: query
+        name: limit
+        type: integer
+      - description: Claims vs Expected filter (all, claimsGreater, expectedGreater)
+        in: query
+        name: claims_expected_filter
+        type: string
+      - description: Payment status filter (all, overpaid, underpaid, fullyPaid)
+        in: query
+        name: payment_status_filter
+        type: string
+      - description: Search term (optional)
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_dashboard.PaymentsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Payments By Check Number
+      tags:
+      - Dashboard
+  /dashboard/yearly:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve aggregated dashboard data across all years
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/internal_http_server_handlers_dashboard.MonthData'
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Yearly Dashboard Data
+      tags:
+      - Dashboard
+  /departments:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a paginated list of departments with optional search
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Search query
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Departments with Pagination
+      tags:
+      - Departments
+    post:
+      consumes:
+      - application/json
+      description: Create a new department
+      parameters:
+      - description: Department to create
+        in: body
+        name: department
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_department.CreateDepartmentRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_department.DepartmentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create Department
+      tags:
+      - Departments
+  /departments/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a department by ID
+      parameters:
+      - description: Department ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete Department
+      tags:
+      - Departments
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific department by its ID
+      parameters:
+      - description: Department ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_department.DepartmentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Department by ID
+      tags:
+      - Departments
+    put:
+      consumes:
+      - application/json
+      description: Update an existing department by ID
+      parameters:
+      - description: Department ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Department update data
+        in: body
+        name: department
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_department.UpdateDepartmentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_department.DepartmentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update Department
+      tags:
+      - Departments
+  /departments/all:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all departments without pagination
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/internal_http_server_handlers_department.DepartmentResponse'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get All Departments
+      tags:
+      - Departments
+  /rates/inpatient:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of in patient rates with optional filtering and
+        pagination
+      parameters:
+      - description: Filter by code
+        in: query
+        name: code
+        type: string
+      - collectionFormat: csv
+        description: Filter by modifiers
+        in: query
+        items:
+          type: string
+        name: modifiers
+        type: array
+      - description: Filter by description
+        in: query
+        name: description
+        type: string
+      - description: Filter by start date (YYYY-MM-DD)
+        in: query
+        name: startDate
+        type: string
+      - description: Filter by end date (YYYY-MM-DD)
+        in: query
+        name: endDate
+        type: string
+      - default: 1
+        description: Page number for pagination
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Number of items per page
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.GetInPatientRatesRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+      summary: Get In Patient Rates
+      tags:
+      - Rates
+    post:
+      consumes:
+      - application/json
+      description: Create a new in patient rate
+      parameters:
+      - description: In Patient Rate to create
+        in: body
+        name: rate
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_rates.CreateInPatientRateReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.InPatientRateRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+      summary: Create In Patient Rate
+      tags:
+      - Rates
+  /rates/inpatient/{id}:
+    delete:
+      description: Deletes an in patient rate by its ID
+      parameters:
+      - description: In Patient Rate ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+      summary: Delete In Patient Rate
+      tags:
+      - Rates
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific in patient rate by its ID
+      parameters:
+      - description: In Patient Rate ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.InPatientRateRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+      summary: Get In Patient Rate by ID
+      tags:
+      - Rates
+  /rates/outpatient:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of out patient rates with optional filtering and
+        pagination
+      parameters:
+      - description: Filter by code
+        in: query
+        name: code
+        type: string
+      - collectionFormat: csv
+        description: Filter by modifiers
+        in: query
+        items:
+          type: string
+        name: modifiers
+        type: array
+      - description: Filter by description
+        in: query
+        name: description
+        type: string
+      - description: Filter by start date (YYYY-MM-DD)
+        in: query
+        name: startDate
+        type: string
+      - description: Filter by end date (YYYY-MM-DD)
+        in: query
+        name: endDate
+        type: string
+      - default: 1
+        description: Page number for pagination
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Number of items per page
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.GetOutPatientRatesRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+      summary: Get Out Patient Rates
+      tags:
+      - Rates
+    post:
+      consumes:
+      - application/json
+      description: Create a new out patient rate
+      parameters:
+      - description: Out Patient Rate to create
+        in: body
+        name: rate
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_rates.CreateOutPatientRateReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.OutPatientRateRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+      summary: Create Out Patient Rate
+      tags:
+      - Rates
+  /rates/outpatient/{id}:
+    delete:
+      description: Deletes an out patient rate by its ID
+      parameters:
+      - description: Out Patient Rate ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+      summary: Delete Out Patient Rate
+      tags:
+      - Rates
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific out patient rate by its ID
+      parameters:
+      - description: Out Patient Rate ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.OutPatientRateRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_rates.ErrorRes'
+      summary: Get Out Patient Rate by ID
+      tags:
+      - Rates
+  /rates/outpatient/all:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all outpatient rates from the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get All Outpatient Rates
+      tags:
+      - Rates
+  /rates/outpatient/by-code:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific outpatient rate by code and modifiers
+      parameters:
+      - description: Rate code
+        in: query
+        name: code
+        required: true
+        type: string
+      - description: Rate modifiers (comma-separated)
+        in: query
+        name: modifiers
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Outpatient Rate by Code and Modifiers
+      tags:
+      - Rates
+  /rates/outpatient/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new outpatient rate
+      parameters:
+      - description: Outpatient rate to create
+        in: body
+        name: rate
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_aci_backend_internal_core_domain_rates.OutPatientRate'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create Outpatient Rate
+      tags:
+      - Rates
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a paginated list of users with optional search and sorting
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - default: created_at
+        description: Field to sort by
+        in: query
+        name: sort_field
+        type: string
+      - default: desc
+        description: Sort order (asc/desc)
+        in: query
+        name: sort_order
+        type: string
+      - description: Search query
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get Users
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: Create a new user
+      parameters:
+      - description: User to create
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_user.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_user.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "409":
+          description: Conflict
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create User
+      tags:
+      - Users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete User
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific user by their ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_user.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get User by ID
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: Update an existing user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: User update data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_user.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_http_server_handlers_user.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "409":
+          description: Conflict
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update User
+      tags:
+      - Users
+  /users/{id}/password:
+    put:
+      consumes:
+      - application/json
+      description: Change the password for a user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Password change data
+        in: body
+        name: password
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_user.ChangePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Change User Password
+      tags:
+      - Users
+  /users/{id}/status:
+    put:
+      consumes:
+      - application/json
+      description: Update the status (active/inactive) of a user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Status update
+        in: body
+        name: status
+        required: true
+        schema:
+          $ref: '#/definitions/internal_http_server_handlers_user.UpdateStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update User Status
+      tags:
+      - Users
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
